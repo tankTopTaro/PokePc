@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
+import { BsBox } from "react-icons/bs";
 
-const Pagination = ({ totalCells, cellPerBox, currentBox, previousPage, nextPage, colors, isDark }) => {
+const Pagination = ({ className, totalCells, cellPerBox, currentBox, previousPage, nextPage, openBoxes, colors, isDark }) => {
     let pages =  []
-    const [ color1, color2, color3, color4, color5 ] = colors || []
+    const [ color1, color2, color3 ] = colors || []
     const [hoverPrev, setHoverPrev] = useState(false)
     const [hoverNext, setHoverNext] = useState(false)
 
@@ -18,46 +19,52 @@ const Pagination = ({ totalCells, cellPerBox, currentBox, previousPage, nextPage
     const handleMouseLeaveNext = () => setHoverNext(false)
 
     return (
-        <div className="inline-flex w-full items-center h-28 justify-center my-4 rounded">
+        <div className={`${className} inline-flex w-auto items-center justify-center`}>
             <div className="flex justify-center items-center w-full">
             <button 
-                className='rounded-s-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-4 border-y-2 border-l-2 h-28 w-40 py-4 flex text-center items-center justify-between' 
+                className='rounded-ss-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-2 border-2 border-slate-500 h-12 w-14 py-4 flex text-center items-center justify-between' 
                 style={{
                     color: isDark && 'white',  
-                    backgroundColor: hoverPrev ? color2 : color4, 
-                    borderTop: `solid 2px ${color5}`, 
-                    borderBottom: `solid 2px ${color5}`, 
-                    borderLeft: `solid 2px ${color5}`  }} 
+                    backgroundColor: hoverPrev ? color1 : color3, 
+                    border: `solid 2px ${color2}`, 
+                }} 
                 onClick={previousPage}
                 onMouseEnter={() => handleMouseEnterPrev()}
                 onMouseLeave={() => handleMouseLeavePrev()}
             >
-                <FaChevronLeft /> Prev
+                <span><FaChevronLeft /></span> <span className='ml-2'>L</span>
             </button>
             <div 
-                className="text-xl text-center flex items-center justify-center w-full h-28 border-y-2" 
+                className="rounded text-xl text-center cursor-pointer border-2 border-slate-500 flex items-center justify-center w-full h-16 mx-4 border-2" 
                 style={{ 
-                    backgroundColor: color5,
-                    borderTop: `solid 2px ${color5}`, 
-                    borderBottom: `solid 2px ${color5}`, 
+                    backgroundColor: color3,
+                    border: `solid 2px ${color3}`,
                     color: isDark && 'white' 
                 }} 
+                onClick={() => openBoxes(pages.length)}
             >
-                Box {currentBox} of {pages.length}
+              <span 
+                className='hidden md:flex md:items-center md:justify-center md:w-1/4 md:px-4 md:border-r md:border-solid md:h-5/6 md:border-slate-400'
+                style={{
+                    borderRight: `2px solid ${color1}`,
+                }}
+              >
+                    <BsBox className='hidden md:block' size={28} style={{ color: color1 }} />
+                </span>
+              <span className='w-3/4 flex items-center justify-center' >{currentBox} - {pages.length}</span>
             </div>
             <button 
-                className='rounded-e-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-4 border-y-2 border-r-2 h-28 w-40 py-4 flex text-center items-center justify-between' 
+                className='rounded-tr-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-2 border-2 border-slate-500 h-12 w-14 py-4 flex text-center items-center justify-between' 
                 style={{ 
                     color: isDark && 'white',  
-                    backgroundColor: hoverNext ? color2 : color4, 
-                    borderTop: `solid 2px ${color5}`, 
-                    borderBottom: `solid 2px ${color5}`, 
-                    borderRight: `solid 2px ${color5}` }} 
+                    backgroundColor: hoverNext ? color1 : color3, 
+                    border: `solid 2px ${color2}`
+                }} 
                 onClick={nextPage}
                 onMouseEnter={() => handleMouseEnterNext()}
                 onMouseLeave={() => handleMouseLeaveNext()}
             >
-                Next <FaChevronRight /> 
+                <span className='mr-2'>R</span> <span><FaChevronRight /></span> 
             </button>
             </div>
         </div>

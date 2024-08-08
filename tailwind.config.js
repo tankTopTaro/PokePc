@@ -2,7 +2,12 @@
 export default {
   content: ["./src/**/*.{html,js,jsx}",],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sarabun: ['Sarabun', 'sans-serif'],
+        opensans: ['Open Sans', 'sans-serif']
+      }
+    },
   },
   plugins: [],
 }

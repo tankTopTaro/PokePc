@@ -5,7 +5,11 @@ export default {
         return API().get(`pokemon?limit=${limit}&offset=${offset}`)
     },
 
-    getPokemonByName(pokemon) {
+    getPokemonById(pokemon) {
         return API().get(`pokemon/${pokemon}`)
+    },
+
+    getPokemonSpeciesById(pokemon) {
+        return API().get(`pokemon-species/${pokemon}`)
     }
 }
