@@ -1,9 +1,8 @@
 import React from 'react'
 import Box from './components/Box'
 import Entries from './components/Entries'
-import Container from './components/Container'
 
-const Poke = ({palette, pokedex, species, currentBox, cellPerBox, setCurrentBox, Id, name, sprite, types, handleMouseClick, openBoxes}) => {
+const Poke = ({palette, pokedex, loading, species, currentBox, cellPerBox, setCurrentBox, Id, name, sprite, types, handleMouseClick, openBoxes}) => {
   return (
       <>
       <Box 

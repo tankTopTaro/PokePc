@@ -23,9 +23,7 @@ const Pagination = ({ className, totalCells, cellPerBox, currentBox, previousPag
             <div className="flex justify-center items-center w-full">
             <button 
                 className='rounded-ss-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-2 border-2 border-slate-500 h-12 w-14 py-4 flex text-center items-center justify-between' 
-                style={{
-                    color: isDark && 'white',  
-                    backgroundColor: hoverPrev ? color1 : color3, 
+                style={{ 
                     border: `solid 2px ${color2}`, 
                 }} 
                 onClick={previousPage}
@@ -37,16 +35,14 @@ const Pagination = ({ className, totalCells, cellPerBox, currentBox, previousPag
             <div 
                 className="rounded text-xl text-center cursor-pointer border-2 border-slate-500 flex items-center justify-center w-full h-16 mx-4 border-2" 
                 style={{ 
-                    backgroundColor: color3,
-                    border: `solid 2px ${color3}`,
-                    color: isDark && 'white' 
+                    border: `solid 2px ${color2}`,
                 }} 
                 onClick={() => openBoxes(pages.length)}
             >
               <span 
                 className='hidden md:flex md:items-center md:justify-center md:w-1/4 md:px-4 md:border-r md:border-solid md:h-5/6 md:border-slate-400'
                 style={{
-                    borderRight: `2px solid ${color1}`,
+                    borderRight: `2px solid ${color2}`,
                 }}
               >
                     <BsBox className='hidden md:block' size={28} style={{ color: color1 }} />
@@ -56,8 +52,6 @@ const Pagination = ({ className, totalCells, cellPerBox, currentBox, previousPag
             <button 
                 className='rounded-tr-lg hover:bg-slate-700 hover:text-white bg-transparent font-semibold px-2 border-2 border-slate-500 h-12 w-14 py-4 flex text-center items-center justify-between' 
                 style={{ 
-                    color: isDark && 'white',  
-                    backgroundColor: hoverNext ? color1 : color3, 
                     border: `solid 2px ${color2}`
                 }} 
                 onClick={nextPage}

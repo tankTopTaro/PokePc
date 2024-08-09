@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sarabun: ['Sarabun', 'sans-serif'],
-        opensans: ['Open Sans', 'sans-serif']
+        roboto: ['Roboto', 'sans-serif'],
       }
     },
   },

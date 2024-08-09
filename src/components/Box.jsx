@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import Container from './Container'
+import React, { useEffect, useRef, useState } from 'react'
 import Pagination from './Pagination'
 import SearchBox from './SearchBox'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+
+gsap.registerPlugin(useGSAP)
 
 const Box = ({ palette, pokedex, currentBox, setCurrentBox, cellPerBox, handleMouseClick, openBoxes }) => {
 
@@ -25,7 +28,7 @@ const Box = ({ palette, pokedex, currentBox, setCurrentBox, cellPerBox, handleMo
   }
 
   return (
-    <Container className='flex-col items-center bg-transparent justify-center w-full h-full lg:w-3/4 bg-slate-300'>
+    <div className='flex flex-col items-center bg-transparent justify-center w-full h-full lg:w-3/4 bg-slate-300'>
       <div className="flex flex-col px-4">
           <Pagination 
             className='h-1/6 mb-2'
@@ -44,12 +47,9 @@ const Box = ({ palette, pokedex, currentBox, setCurrentBox, cellPerBox, handleMo
               key={pokemon.id} 
               className='flex rounded items-center justify-center m-0.5 xl:m-2 lg:m-1 md:m-1 xl:w-36 xl:h-36 lg:w-28 lg:h-28 md:w-20 md:h-20 sm:w-16 sm:h-16 grow bg-slate-600' 
               onClick={() => handleMouseClick(pokemon.id, pokemon.name, pokemon.sprites.front_default, pokemon.sprites.other["official-artwork"].front_default, pokemon.types)}
-              style={{
-                backgroundColor: color1,
-              }}
               >
               <img
-                className='object-cover'
+                className={`object-cover`}
                 src={pokemon.sprites.front_default}
                 alt={pokemon.name}
                 loading='lazy' />
@@ -57,21 +57,21 @@ const Box = ({ palette, pokedex, currentBox, setCurrentBox, cellPerBox, handleMo
           ))}
         </div>
 
-        <Container className='items-center px-2 gap-2 h-1/6 pb-2'>
-          <Container className='items-center justify-center w-1/2 pt-2 cursor-pointer'>
+        <div className='flex items-center px-2 gap-2 h-1/6 pb-2'>
+          <div className='flex items-center justify-center w-1/2 pt-2 cursor-pointer'>
             <span 
               onClick={() => console.log('All Gens')}
               className='flex items-center justify-center text-white border w-full h-10'
             >
               All Gens
             </span>
-          </Container>
-          <Container className='items-center justify-center w-1/2'>
+          </div>
+          <div className='items-center justify-center w-1/2'>
             <SearchBox />
-          </Container>
-        </Container>
+          </div>
+        </div>
       </div>
-    </Container>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Container from './Container'
 import pokeball from '../assets/pokeball.svg'
 import Types from '../assets/Types'
 
@@ -23,13 +22,13 @@ const Entries = ({ species, Id, name, sprite, types, palette }) => {
   return (
     <div className='w-0 md:w-1/4 invisible md:visible' style={{ color: isDark && 'white'}}>
       <div className='w-full bg-slate-600 h-screen z-0 absolute opacity-10'></div>
-      <Container className="flex-col z-50 w-full font-sarabun">
-          <div className="flex items-center justify-between px-4 w-full md:h-20 bg-slate-500" style={{ backgroundColor: color3, transition: 'background-color 0.2s ease'}}>
+      <div className="flex flex-col z-50 w-full">
+          <div className="flex items-center justify-between px-4 w-full md:h-20 bg-slate-500" style={{ backgroundColor: color2, transition: 'all 0.3s ease'}}>
             { name && (
               <>
-              <div className="font-sarabun flex w-4/6 items-center justify-start">
+              <div className=" flex w-4/6 items-center justify-start">
                 <img src={pokeball} alt="" className='object-contain h-6 origin-center rotate-12' />
-                <h3 className='text-2xl lg:text-4xl ml-4'>{name !== null ? name.charAt(0).toUpperCase() + name.slice(1) : 'Pokemon'}</h3>
+                <h3 className='text-2xl xl:text-4xl ml-4'>{name !== null ? name.charAt(0).toUpperCase() + name.slice(1) : 'Pokemon'}</h3>
               </div>
               <span className='text-2xl invisible lg:visible'>{Id !== null ? `# ${formatId(Id)}` : '# 000'}</span>
               </>
@@ -41,7 +40,7 @@ const Entries = ({ species, Id, name, sprite, types, palette }) => {
               return (
                 <span 
                   key={type.type.name} 
-                  className='font-sarabun flex items-center justify-center mx-2 py-2 px-6 mb-1.5 text-center text-xl lg:text-2xl text-white' 
+                  className=' flex items-center justify-center mx-2 py-2 px-6 mb-1.5 text-center text-xl lg:text-2xl text-white' 
                   style={{ 
                     borderRadius: '25px', 
                     width: type.type.length < 2 ? '100px' : '100%',
@@ -53,7 +52,7 @@ const Entries = ({ species, Id, name, sprite, types, palette }) => {
               )
             })}
           </div>
-          <div className="flex items-center justify-center w-full bg-slate-500 h-max px-4 py-2" style={{ backgroundColor: color1, transition: 'background-color 0.2s ease'}}>
+          <div className="flex items-center justify-center w-full bg-slate-500 h-max px-4 py-2" >
             <div className="z-0 absolute flex items-center justify-center">
               <img src={pokeball} alt='' className='object-contain h-36 lg:h-80 opacity-40' />
             </div>
@@ -62,10 +61,10 @@ const Entries = ({ species, Id, name, sprite, types, palette }) => {
               <img src={sprite !== null ? sprite : ''} alt={name} loading='lazy' />
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center w-full bg-slate-500 h-80 lg:h-60 mt-8 px-4 py-2" style={{ backgroundColor: color1, transition: 'background-color 0.2s ease'}}>
-            <span className='text-normal xl:text-xl text-white font-sarabun'>{flavorText !== null ? `"${flavorText}"` : ''}</span>
+          <div className="flex flex-col items-center justify-center w-full bg-slate-500 h-80 lg:h-60 mt-8 px-4 py-2" >
+            <span className='text-normal xl:text-xl text-white'>{flavorText !== null ? `"${flavorText}"` : ''}</span>
           </div>
-      </Container>
+      </div>
     </div>
   )
 }

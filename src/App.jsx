@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from './components/Sidebar'
-import Container from './components/Container'
 import PokeAPI from './services/PokeAPI'
 import Poke from './Poke'
 import { FastAverageColor } from 'fast-average-color'
@@ -17,19 +16,20 @@ const App = () => {
   const [species, setSpecies] = useState([])
   const [currentBox, setCurrentBox] = useState(1)
   const [cellPerBox, setCellPerBox] = useState(30)
-  const [palette, setPalette] = useState({
-    color: [],
-    isDark: false
-  })
+  const [loading, setLoading] = useState(false)
+  const [palette, setPalette] = useState({ color: [], isDark: false })
 
   const fac = new FastAverageColor()
 
-  const limit = 10000
-  const offset = 0
+  // Pokemon Api load count
+  const limit = 200
+  const offset = 905
 
+  // Color Scheme
   const { palettes, isDark } = palette
   const [ color1, color2, color3 ] = palettes || []
 
+  // Event Handlers
   const handleMouseClick = (pokemon_id, pokemon_name, sprite_color, pokemon_sprite, pokemon_types) => {
     setId(pokemon_id)
     setName(pokemon_name)
@@ -49,8 +49,10 @@ const App = () => {
     console.log(box)
   }
 
+  // API Loading
   const loadPokedex = async () => {
     try {
+      setLoading(true)
       // Get Initial List
       const response = await PokeAPI.getPokedexList(limit, offset)
       const id = response.data.results.map((pokemon) => {
@@ -60,17 +62,18 @@ const App = () => {
 
       // Get Details
       const res = id.map((pokemon) => PokeAPI.getPokemonById(pokemon))
-      
       const detailedResponse = await Promise.all(res)
       const dataArray = detailedResponse.map((res) => res.data)
       setPokedex(dataArray)
 
-      // Get Species Details
+      // Get Species Data
       const resp = id.map((pokemon) => PokeAPI.getPokemonSpeciesById(pokemon))
       const speciesResponse = await Promise.all(resp)
       const speciesArray = speciesResponse.map((res) => res.data)
       setSpecies(speciesArray)
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       throw error
     }
   }
@@ -102,6 +105,7 @@ const App = () => {
     }
   }
 
+  // API UseEffects
   useEffect(() => {
     loadPokedex()
   }, [])
@@ -111,25 +115,28 @@ const App = () => {
   }, [spriteColor])
 
   return (
-    <Container>
+    <div className='flex font-roboto'>
       <Sidebar />
-      <Container className='bg-slate-700 w-full' style={{ background: color2, transition: 'background-color ease'}}>
-        <Poke 
-          palette={palette} 
-          pokedex={pokedex} 
-          species={species}
-          limit={limit} 
-          Id={Id} 
-          name={name} 
-          sprite={sprite} 
-          types={types}
-          cellPerBox={cellPerBox}
-          currentBox={currentBox} 
-          setCurrentBox={setCurrentBox} 
-          handleMouseClick={handleMouseClick}
-          openBoxes={openBoxes}/>
-      </Container>
-    </Container>
+      <div className='flex w-full' style={{ backgroundColor: color1, transition: 'background-color 0.3s ease' }}>
+        {
+          loading ? <></> : 
+            <Poke
+              palette={palette} 
+              pokedex={pokedex} 
+              species={species}
+              limit={limit} 
+              Id={Id} 
+              name={name} 
+              sprite={sprite} 
+              types={types}
+              cellPerBox={cellPerBox}
+              currentBox={currentBox} 
+              setCurrentBox={setCurrentBox} 
+              handleMouseClick={handleMouseClick}
+              openBoxes={openBoxes}/>
+        }
+      </div>
+    </div>
   )
 }
 
